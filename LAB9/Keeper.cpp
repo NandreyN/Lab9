@@ -12,7 +12,6 @@ Keeper::Keeper()
 	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0; // Init with 0
 	this->_buffer = nullptr;
-	
 	// I need _buffer to pass data between methods, because number can be large enough
 	// to be placed into one byte;
 }
@@ -52,6 +51,18 @@ bool Keeper::isInSet(short number)
 	if (this->_bits[numberOfByte] & p)
 		return true;
 	return false;
+}
+
+void Keeper::remove(short number)
+{
+	bool isThere = isInSet(number);
+	if (!isThere)
+		return;
+	int numberOfByte = number / 8;
+	int position = number % 8;
+	short p = 1;
+	p <<= position;
+	this->_bits[numberOfByte] ^= p;
 }
 
 std::vector<short> Keeper::getNumberCollection()
