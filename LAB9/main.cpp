@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Reader.h"
 #include "Writer.h"
+#include "Keeper.h"
 using namespace std;
 
 int main()
@@ -18,5 +19,8 @@ int main()
 	
 	Writer writer("out.txt");
 	writer.writeData(data);
+
+	Keeper k;
+	auto a = k.getNumberCollection();
 	return 0;
 }

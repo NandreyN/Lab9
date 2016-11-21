@@ -1,15 +1,20 @@
 #pragma once
+#include <vector>
+
 class Keeper
 {
 public:
-	explicit Keeper(int range);
+	Keeper();
 	virtual ~Keeper();
-	virtual void add(int number);
-	bool isInSet(int number);
-	void remove(int number);
+	virtual void add(short number); // to handle negative numbers:  1 - negative, 0 - positive.  
+	bool isInSet(short number);
+	void remove(short number);
+	std::vector<short> getNumberCollection();
 protected:
 	char* _bits;
+	char* _buffer;
 	int _bytesCount;
-	char getBit(int number); // << number
+	short _max;
+	void getByteBuff(short number); // << number
 };
 
