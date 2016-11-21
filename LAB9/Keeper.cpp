@@ -33,7 +33,7 @@ Keeper::~Keeper()
 
 void Keeper::add(short number)
 {
-	this->getByteBuff(number);
+	this->setByteBuff(number);
 
 	for (int i = 0; i < this->_bytesCount; i++)
 		if (this->_buffer[i] != 0)
@@ -62,7 +62,7 @@ std::vector<short> Keeper::getNumberCollection()
 }
 
 
-void Keeper::getByteBuff(short number)
+void Keeper::setByteBuff(short number)
 {
 	if (this->_buffer == nullptr)
 		this->_buffer = new char[this->_bytesCount];

@@ -15,6 +15,6 @@ protected:
 	char* _buffer;
 	int _bytesCount;
 	short _max;
-	void getByteBuff(short number); // << number
+	void setByteBuff(short number); // << number
 };
 
