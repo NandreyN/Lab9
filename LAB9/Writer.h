@@ -7,7 +7,7 @@ class Writer
 {
 public:
 	Writer(std::string path);
-	void writeData(std::vector<int> data);
+	void writeData(std::vector<short> &data);
 	~Writer();
 private:
 	std::ofstream _stream;

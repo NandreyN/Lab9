@@ -2,19 +2,34 @@
 #include <iostream>
 #include <limits.h>
 
-Keeper::Keeper()
+Keeper::Keeper(): _max(32767)
 {
-	this->_max = 32767;
-	this->_bytesCount = ceil(this->_max / 8); // Defining the amount of bytes we need
-
+	this->_bytesCount = static_cast<int>(ceil(this->_max / 8)); // Defining the amount of bytes we need
+	this->_queue;
 	this->_bits = new char[this->_bytesCount];
 
 	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0; // Init with 0
 	this->_buffer = nullptr;
+	this->_queue;
 	// I need _buffer to pass data between methods, because number can be large enough
 	// to be placed into one byte;
 }
+
+Keeper::Keeper(std::vector<short> data): _max(32767)
+{
+	this->_bytesCount = static_cast<int>(ceil(this->_max / 8));
+	this->_bits = new char[this->_bytesCount];
+	this->_buffer = nullptr;
+	for (int i = 0; i < this->_bytesCount; i++)
+		this->_bits[i] = 0; // Init with 0
+
+	if (data.capacity() >= static_cast<size_t>(this->_max))
+		throw "Overflow";
+
+	this->_queue = data;
+	this->processQueue();
+}	
 
 Keeper::~Keeper()
 {
@@ -30,6 +45,14 @@ Keeper::~Keeper()
 		delete[] this->_buffer;
 }
 
+void Keeper::processQueue()
+{
+	for (int i = 0; i < this->_queue.size();i++)
+		this->add(this->_queue[i]);
+
+	this->_queue.clear();
+}
+
 void Keeper::add(short number)
 {
 	this->setByteBuff(number);
@@ -40,6 +63,21 @@ void Keeper::add(short number)
 			this->_bits[i] |= this->_buffer[i];
 			this->_buffer[i] = 0;
 		}
+}
+
+void Keeper::add(std::vector<short> data)
+{
+	this->_queue = data;
+	this->processQueue();
+}
+
+Keeper Keeper::ifIntersect(Keeper& setOne, Keeper& setTwo)
+{
+	auto collectionOne = setOne.getNumberCollection();
+	auto collectionTwo = setTwo.getNumberCollection();
+	std::vector<short> data;
+
+	return Keeper() ;
 }
 
 bool Keeper::isInSet(short number)

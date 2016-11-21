@@ -6,9 +6,10 @@ Writer::Writer(std::string path) : _stream(path)
 		throw std::invalid_argument("Invalid out file path");
 }
 
-void Writer::writeData(std::vector<int> data)
+void Writer::writeData(std::vector<short> &data)
 {
-	for (int i=0;i<data.capacity();i++)
+	int len = data.size();
+	for (int i=0;i<len;i++)
 		this->_stream << data[i] << "\n";
 }
 

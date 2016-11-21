@@ -7,12 +7,12 @@ class Reader
 {
 public:
 	explicit Reader(std::string path);
-	std::vector<int> readToTheEnd();
+	std::vector<short> readToTheEnd();
 	int getItemsCount();
 	~Reader();
 private:
 	int _dataItemsCount;
 	std::ifstream _stream;
-	std::vector<int> _data;
+	std::vector<short> _data;
 };
 
