@@ -1,9 +1,9 @@
 #include "Set255.h"
 #include <limits.h>
 
-Set255::Set255() : _maxVal(UCHAR_MAX), _bytesCount(32)
+Set255::Set255() : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8)
 {
-	this->_bits = new unsigned char[this->_bytesCount];
+	this->_bits = new unsigned char[this->_bytesCount + 1];
 	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0;
 }
@@ -11,11 +11,12 @@ Set255::Set255() : _maxVal(UCHAR_MAX), _bytesCount(32)
 Set255::~Set255()
 {
 	delete[] this->_bits;
+	this->_bits = nullptr;
 }
 
-Set255::Set255(std::vector<short> data) : _maxVal(UCHAR_MAX), _bytesCount(32)
+Set255::Set255(std::vector<short> data) : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8)
 {
-	this->_bits = new unsigned char[this->_bytesCount];
+	this->_bits = new unsigned char[this->_bytesCount + 1];
 	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0;
 
