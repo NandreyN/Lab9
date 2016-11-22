@@ -11,8 +11,8 @@ public:
 	/// TO DO FROM FILE!!!!
 	virtual void add(short number); // to handle negative numbers:  1 - negative, 0 - positive.  
 	virtual void add(std::vector<short> data);
-	static Keeper ifIntersect( Keeper& const setOne, Keeper& const setTwo);
-	bool isIncludedInto(Keeper& const another);
+	static std::vector<short> ifIntersect( Keeper& const setOne, Keeper& const setTwo);
+	bool isSubsetOf(Keeper& const another);
 	virtual bool isInSet(short number);
 	virtual void remove(short number);
 	virtual std::vector<short> getNumberCollection();

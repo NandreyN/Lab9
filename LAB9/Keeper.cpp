@@ -2,7 +2,7 @@
 #include <iostream>
 #include <limits.h>
 
-Keeper::Keeper(): _max(32767)
+Keeper::Keeper() : _max()
 {
 	this->_bytesCount = static_cast<int>(ceil(this->_max / 8)); // Defining the amount of bytes we need
 	this->_queue;
@@ -16,7 +16,7 @@ Keeper::Keeper(): _max(32767)
 	// to be placed into one byte;
 }
 
-Keeper::Keeper(std::vector<short> data): _max(32767)
+Keeper::Keeper(std::vector<short> data) : _max(32767)
 {
 	this->_bytesCount = static_cast<int>(ceil(this->_max / 8));
 	this->_bits = new char[this->_bytesCount];
@@ -28,8 +28,8 @@ Keeper::Keeper(std::vector<short> data): _max(32767)
 		throw "Overflow";
 
 	this->_queue = data;
-	this->processQueue();
-}	
+	this->processQueue(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!
+}
 
 Keeper::~Keeper()
 {
@@ -47,7 +47,7 @@ Keeper::~Keeper()
 
 void Keeper::processQueue()
 {
-	for (int i = 0; i < this->_queue.size();i++)
+	for (int i = 0; i < this->_queue.size(); i++)
 		this->add(this->_queue[i]);
 
 	this->_queue.clear();
@@ -71,13 +71,31 @@ void Keeper::add(std::vector<short> data)
 	this->processQueue();
 }
 
-Keeper Keeper::ifIntersect(Keeper& setOne, Keeper& setTwo)
+std::vector<short> Keeper::ifIntersect(Keeper& setOne, Keeper& setTwo)
 {
 	auto collectionOne = setOne.getNumberCollection();
 	auto collectionTwo = setTwo.getNumberCollection();
 	std::vector<short> data;
 
-	return Keeper() ;
+	for (int i = 0; i < collectionTwo.size(); i++)
+		if (std::find(collectionOne.begin(), collectionOne.end(), collectionTwo[i]) != collectionOne.end())
+		{
+			data.push_back(collectionTwo[i]);
+		}
+
+	return data;
+}
+
+bool Keeper::isSubsetOf(Keeper& another)
+{
+	auto thisNumberCollection = this->getNumberCollection();
+
+	for (int i = 0; i < thisNumberCollection.size(); i++)
+	{
+		if (!another.isInSet(thisNumberCollection[i]))
+			return false;
+	}
+	return true;
 }
 
 bool Keeper::isInSet(short number)
