@@ -1,8 +1,8 @@
-#include "Keeper.h"
 #include <iostream>
 #include <limits.h>
+#include "Set.h"
 
-Keeper::Keeper() : _max()
+Set::Set() : _max()
 {
 	this->_bytesCount = static_cast<int>(ceil(this->_max / 8)); // Defining the amount of bytes we need
 	this->_queue;
@@ -16,7 +16,7 @@ Keeper::Keeper() : _max()
 	// to be placed into one byte;
 }
 
-Keeper::Keeper(std::vector<short> data) : _max(32767)
+Set::Set(std::vector<short> data) : _max(32767)
 {
 	this->_bytesCount = static_cast<int>(ceil(this->_max / 8));
 	this->_bits = new char[this->_bytesCount];
@@ -31,7 +31,7 @@ Keeper::Keeper(std::vector<short> data) : _max(32767)
 	this->processQueue(); // !!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
 
-Keeper::~Keeper()
+Set::~Set()
 {
 	try
 	{
@@ -39,13 +39,18 @@ Keeper::~Keeper()
 	}
 	catch (...)
 	{
-		std::cout << "Exception in ~Keeper" << std::endl;
+		std::cout << "Exception in ~Set" << std::endl;
 	}
 	if (this->_buffer != nullptr)
 		delete[] this->_buffer;
 }
 
-void Keeper::processQueue()
+int Set::getType()
+{
+	return 0;
+}
+
+void Set::processQueue()
 {
 	for (int i = 0; i < this->_queue.size(); i++)
 		this->add(this->_queue[i]);
@@ -53,7 +58,7 @@ void Keeper::processQueue()
 	this->_queue.clear();
 }
 
-void Keeper::add(short number)
+void Set::add(short number)
 {
 	this->setByteBuff(number);
 
@@ -65,13 +70,13 @@ void Keeper::add(short number)
 		}
 }
 
-void Keeper::add(std::vector<short> data)
+void Set::add(std::vector<short> data)
 {
 	this->_queue = data;
 	this->processQueue();
 }
 
-std::vector<short> Keeper::ifIntersect(Keeper& setOne, Keeper& setTwo)
+std::vector<short> Set::intersection(Set& setOne, Set& setTwo)
 {
 	auto collectionOne = setOne.getNumberCollection();
 	auto collectionTwo = setTwo.getNumberCollection();
@@ -86,7 +91,7 @@ std::vector<short> Keeper::ifIntersect(Keeper& setOne, Keeper& setTwo)
 	return data;
 }
 
-bool Keeper::isSubsetOf(Keeper& another)
+bool Set::isSubsetOf(Set& another)
 {
 	auto thisNumberCollection = this->getNumberCollection();
 
@@ -98,7 +103,7 @@ bool Keeper::isSubsetOf(Keeper& another)
 	return true;
 }
 
-bool Keeper::isInSet(short number)
+bool Set::isInSet(short number)
 {
 	int numberOfByte = number / 8;
 	int position = number % 8;
@@ -109,7 +114,7 @@ bool Keeper::isInSet(short number)
 	return false;
 }
 
-void Keeper::remove(short number)
+void Set::remove(short number)
 {
 	bool isThere = isInSet(number);
 	if (!isThere)
@@ -121,7 +126,7 @@ void Keeper::remove(short number)
 	this->_bits[numberOfByte] ^= p;
 }
 
-std::vector<short> Keeper::getNumberCollection()
+std::vector<short> Set::getNumberCollection()
 {
 	short p;
 	std::vector<short> collectionToReturn;
@@ -140,7 +145,7 @@ std::vector<short> Keeper::getNumberCollection()
 }
 
 
-void Keeper::setByteBuff(short number)
+void Set::setByteBuff(short number)
 {
 	if (this->_buffer == nullptr)
 		this->_buffer = new char[this->_bytesCount];

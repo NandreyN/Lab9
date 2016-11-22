@@ -8,6 +8,7 @@ class Reader
 public:
 	explicit Reader(std::string path);
 	std::vector<short> readToTheEnd();
+	void init(std::string path);
 	int getItemsCount();
 	~Reader();
 private:

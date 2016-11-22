@@ -142,18 +142,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Keeper.cpp" />
+    <ClCompile Include="Set.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Reader.cpp" />
+    <ClCompile Include="Set255.cpp" />
     <ClCompile Include="Writer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Keeper.h" />
+    <ClInclude Include="Set.h" />
     <ClInclude Include="Reader.h" />
+    <ClInclude Include="Set255.h" />
     <ClInclude Include="Writer.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="in.txt" />
+    <Text Include="in2.txt" />
     <Text Include="out.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

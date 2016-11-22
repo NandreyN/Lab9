@@ -1,20 +1,16 @@
 #include <iostream>
 #include "Reader.h"
 #include "Writer.h"
-#include "Keeper.h"
+#include "Set.h"
 using namespace std;
 
 int main()
 {
 	Reader reader("in.txt");
-	int len = reader.getItemsCount();
+	Set keep(reader.readToTheEnd());
 
-	Keeper keep(reader.readToTheEnd());
-
-	Writer writer("out.txt");
-	auto var = keep.getNumberCollection();
-
-	writer.writeData(var);
-
+	reader.init("in2.txt");
+	Set set(reader.readToTheEnd());
+	
 	return 0;
 }

@@ -27,6 +27,26 @@ std::vector<short> Reader::readToTheEnd()
 	return this->_data;
 }
 
+void Reader::init(std::string path)
+{
+	this->_stream.close();
+	if (this->_stream.is_open())
+		throw "Error while closing file";
+	this->_stream.clear();
+	
+	this->_stream.open(path);
+
+	std::string str;
+	std::getline(this->_stream, str); // first line is number of input
+
+	if (str == "")
+		throw "File reading error";
+
+	this->_dataItemsCount = std::stoi(str);
+	this->_data.clear();
+	this->_data.reserve(this->_dataItemsCount);
+}
+
 int Reader::getItemsCount()
 {
 	return this->_dataItemsCount;
@@ -36,5 +56,5 @@ Reader::~Reader()
 {
 	this->_stream.close();
 	if (this->_stream.is_open())
-		throw std::invalid_argument("Error while closing file");
+		throw "Error while closing file";
 }
