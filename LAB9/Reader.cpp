@@ -2,24 +2,23 @@
 #include "limits.h"
 Reader::Reader(std::string path) : _dataItemsCount(0), _stream(path)
 {
+	// Constructor 
 	if (!this->_stream.is_open())
 		throw std::invalid_argument("Invalid input path");
 
-	std::string str;
-	std::getline(this->_stream, str); // first line is number of input
+	std::string str; // declaring string
+	std::getline(this->_stream, str); // first line is number of input is a number of data items
 
-	this->_dataItemsCount = std::stoi(str);
-	this->_data.reserve(this->_dataItemsCount);
+	this->_dataItemsCount = std::stoi(str); // getting int from std::string
+	this->_data.reserve(this->_dataItemsCount); // reserving space in vector
 }
 
 std::vector<short> Reader::readToTheEnd()
 {
 	std::string str;
-	for (int i = 0; std::getline(this->_stream, str); i++)
+	for (int i = 0; std::getline(this->_stream, str); i++) // equal to : string != ""
 	{
 		short c = (short)std::stoi(str);
-		if (c > SHRT_MAX)
-			throw("larger than short variable");
 
 		this->_data.push_back(c); // Converting to int
 	}
@@ -29,9 +28,12 @@ std::vector<short> Reader::readToTheEnd()
 
 void Reader::init(std::string path)
 {
+	// For reading another file
+
 	this->_stream.close();
 	if (this->_stream.is_open())
 		throw "Error while closing file";
+
 	this->_stream.clear();
 	
 	this->_stream.open(path);
