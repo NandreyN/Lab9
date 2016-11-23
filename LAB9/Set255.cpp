@@ -20,7 +20,7 @@ Set255::Set255(const std::vector<short> &data) : _maxVal(UCHAR_MAX), _bytesCount
 {
 	// Similar to the first constructor
 	this->_bits = new unsigned char[this->_bytesCount + 1];
-	for (int i = 0; i < this->_bytesCount; i++)
+	for (int i = 0; i < this->_bytesCount + 1; i++)
 		this->_bits[i] = 0;
 
 	for (int i = 0; i < data.size(); i++)
@@ -98,7 +98,7 @@ std::vector<short> Set255::getNumberCollection()
 {
 	short p;
 	std::vector<short> collectionToReturn;
-	for (int i = 0; i < this->_bytesCount; i++) // going through all bytes
+	for (int i = 0; i < this->_bytesCount + 1; i++) // going through all bytes
 	{
 		p = 1;
 		for (int j = 0; j < 8; j++) // through bits

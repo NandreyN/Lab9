@@ -15,8 +15,20 @@ int main()
 	Set*  set = new Set(reader.readToTheEnd());
 
 	Writer writer("out.txt");
-	writer.writeLine("SET255:\n");
+	writer.writeLine("SET255:");
 	writer.writeData(set255->getNumberCollection());
+	writer.writeLine("\nSET");
+	writer.writeData(set->getNumberCollection());
+
+	writer.writeLine("\nIntersaction:");
+	writer.writeData(set->getItersactionWith(*set255));
+
+	writer.writeLine("\nIs set255 a subset of Set:");
+	bool res = set->isSubsetOf(*set255);
+	string message = "false";
+	if (res)
+		message = "true";
+	writer.writeLine(message);
 
 	delete set255;
 	delete set;
