@@ -9,6 +9,7 @@ public:
 	explicit Set255(int a); // does nothing
 	virtual int getType(); // getting type, polimorphic method
 
+	void clear();
 	void add(short number) ; // do not need to virtualize, because works pretty identical for both methods, depending on _maxVal and _bytesCount 
 	void add(const std::vector<short> data); // the same
 	bool isInSet(short number); // same

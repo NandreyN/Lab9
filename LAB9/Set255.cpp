@@ -1,10 +1,10 @@
 #include "Set255.h"
 #include <limits.h>
 
-Set255::Set255() : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8) 
+Set255::Set255() : _maxVal(UCHAR_MAX), _bytesCount((_maxVal / 8) + 1) 
 {
 	// init variables above with UCHAR MAX and neede amount of bytes
-	this->_bits = new unsigned char[this->_bytesCount + 1];
+	this->_bits = new unsigned char[this->_bytesCount];
 
 	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0; // Initializing with Zero. if not to perform this, result is unpredictable
@@ -16,11 +16,11 @@ Set255::~Set255()
 	this->_bits = nullptr; // to check in next classes
 }
 
-Set255::Set255(const std::vector<short> &data) : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8)
+Set255::Set255(const std::vector<short> &data) : _maxVal(UCHAR_MAX), _bytesCount((_maxVal / 8 )+ 1)
 {
 	// Similar to the first constructor
-	this->_bits = new unsigned char[this->_bytesCount + 1];
-	for (int i = 0; i < this->_bytesCount + 1; i++)
+	this->_bits = new unsigned char[this->_bytesCount];
+	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0;
 
 	for (int i = 0; i < data.size(); i++)
@@ -43,6 +43,12 @@ int Set255::getType()
 	// is needed for performing polymorphism in other classes/main
 	// is virtual
 	return 0;
+}
+
+void Set255::clear()
+{
+	for(int i = 0;i<this->_bytesCount;i++)
+		this->_bits[i] = 0;
 }
 
 void Set255::add(short number)
@@ -98,7 +104,7 @@ std::vector<short> Set255::getNumberCollection()
 {
 	short p;
 	std::vector<short> collectionToReturn;
-	for (int i = 0; i < this->_bytesCount + 1; i++) // going through all bytes
+	for (int i = 0; i < this->_bytesCount; i++) // going through all bytes
 	{
 		p = 1;
 		for (int j = 0; j < 8; j++) // through bits

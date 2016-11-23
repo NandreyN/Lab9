@@ -4,7 +4,7 @@
 Set::Set() : Set255(0)
 {
 	this->_maxVal = USHRT_MAX;
-	this->_bytesCount = this->_maxVal / 8 ;
+	this->_bytesCount = this->_maxVal / 8 +1 ;
 	// new ranges
 
 	this->_bits = new unsigned char[this->_bytesCount + 1];
@@ -19,10 +19,10 @@ Set::Set(const std::vector<short> &data) : Set255(0)
 	// The same situation as above
 
 	this->_maxVal = USHRT_MAX;
-	this->_bytesCount = this->_maxVal / 8;
+	this->_bytesCount = this->_maxVal / 8 + 1;
 
-	this->_bits = new unsigned char[this->_bytesCount + 1];
-	for (int i = 0; i < this->_bytesCount + 1; i++)
+	this->_bits = new unsigned char[this->_bytesCount];
+	for (int i = 0; i < this->_bytesCount; i++)
 		this->_bits[i] = 0;
 
 	for (int i = 0; i < data.size(); i++)
