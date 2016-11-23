@@ -14,7 +14,7 @@ Set::Set() : Set255(0)
 	// calling Set255(0) , an empty one, in order to not to overwrite range settings
 }
 
-Set::Set(std::vector<short> data) : Set255(0)
+Set::Set(const std::vector<short> &data) : Set255(0)
 {
 	// The same situation as above
 

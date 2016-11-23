@@ -6,7 +6,7 @@ class Set:public Set255
 {
 public:
 	explicit Set();
-	explicit Set(std::vector<short> data);
+	explicit Set(const std::vector<short> &data);
 	virtual ~Set();
 	virtual int getType() override;
 	std::vector<short> getItersactionWith(Set255& const another);

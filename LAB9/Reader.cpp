@@ -1,6 +1,6 @@
 #include "Reader.h"
 #include "limits.h"
-Reader::Reader(std::string path) : _dataItemsCount(0), _stream(path)
+Reader::Reader(const std::string &path) : _dataItemsCount(0), _stream(path)
 {
 	// Constructor 
 	if (!this->_stream.is_open())
@@ -26,7 +26,7 @@ std::vector<short> Reader::readToTheEnd()
 	return this->_data;
 }
 
-void Reader::init(std::string path)
+void Reader::init(const std::string &path)
 {
 	// For reading another file
 

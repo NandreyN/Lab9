@@ -6,9 +6,9 @@
 class Reader
 {
 public:
-	explicit Reader(std::string path);
+	explicit Reader(const std::string &path);
 	std::vector<short> readToTheEnd();
-	void init(std::string path);
+	void init(const std::string &path);
 	int getItemsCount();
 	~Reader();
 private:

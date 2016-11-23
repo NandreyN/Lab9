@@ -16,7 +16,7 @@ Set255::~Set255()
 	this->_bits = nullptr; // to check in next classes
 }
 
-Set255::Set255(std::vector<short> data) : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8)
+Set255::Set255(const std::vector<short> &data) : _maxVal(UCHAR_MAX), _bytesCount(_maxVal / 8)
 {
 	// Similar to the first constructor
 	this->_bits = new unsigned char[this->_bytesCount + 1];
@@ -59,7 +59,7 @@ void Set255::add(short number)
 	this->_bits[numberOfByte] |= a; //  | see google.com)
 }
 
-void Set255::add(std::vector<short> data)
+void Set255::add(const std::vector<short> data)
 {
 	for (int i = 0; i < data.size(); i++) // add all elemtns of vector 
 		this->add(data[i]);
